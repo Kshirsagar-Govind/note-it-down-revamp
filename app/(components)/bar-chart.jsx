@@ -74,6 +74,7 @@ const ExpenseGraph = () => {
       temp_date.setMonth(month);
       let dayscount = month % 2 == 0 ? 31 : 30;
       dayscount = month == 1 ? 28 : dayscount;
+      dayscount = month == 11 ? 31 : dayscount;
 
       for (let i = 0; i < dayscount; i++) {
         expenses.push({
