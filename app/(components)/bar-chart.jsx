@@ -135,7 +135,7 @@ const ExpenseGraph = () => {
               onChange={(e) => setExpense(e.target.value)}
             >
               {Months.map((item, index) => {
-                return <option value={item.id}>{item.name}</option>;
+                return <option key={item.id} value={item.id}>{item.name}</option>;
               })}
             </select>
           </div>
