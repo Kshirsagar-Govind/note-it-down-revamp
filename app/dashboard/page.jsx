@@ -43,13 +43,20 @@ const state = {
 // }
 
 const HomePage = () => {
+  const [user, setUser] = React.useState();
+
   React.useEffect(() => {
-    if (!localStorage.getItem("user")) {
-      redirect("/auth");
-    }
+    const { data: user } = JSON.parse(localStorage.getItem("user"));
+    setUser(user);
   }, []);
 
-  if (localStorage.getItem("user") ) {
+  React.useEffect(() => {
+    if (!user) {
+      redirect("/auth");
+    }
+  }, [user]);
+
+  if (user) {
     return (
       <div className="w-full h-full overflow-hidden">
         <div className=" py-10 px-8">
