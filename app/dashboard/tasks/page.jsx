@@ -71,11 +71,8 @@ const Tasks = () => {
         Tasks: Tasks,
       };
 
-      const res = await axios.post(
-        `${API_URL}/add-tasks`,
-        data
-      );
-        console.log(res);
+      const res = await axios.post(`${API_URL}/add-tasks`, data);
+      console.log(res);
       setShowAddTasks(false);
       getData();
     } catch (error) {
@@ -110,10 +107,14 @@ const Tasks = () => {
                   item.tasks_title
                     .toLowerCase()
                     .includes(search.toLowerCase()) ? (
-                    <TaskContainer data={item} color={item.color} />
+                    <div key={Math.random()}>
+                      <TaskContainer data={item} color={item.color} />
+                    </div>
                   ) : null
                 ) : (
-                  <TaskContainer data={item} color={item.color} />
+                  <div key={Math.random()}>
+                    <TaskContainer data={item} color={item.color} />
+                  </div>
                 )
               )}
           </div>
@@ -128,7 +129,7 @@ const Tasks = () => {
                 <h1>Add New Task +</h1>
                 <CloseButton
                   callback={() => {
-                   setShowAddTasks(false)
+                    setShowAddTasks(false);
                   }}
                 />
               </div>
@@ -144,9 +145,7 @@ const Tasks = () => {
                   <span className="input-wrapper">
                     <input
                       value={tasks_title}
-                      onChange={(e) =>
-                        setTaskTitle(e.target.value)
-                      }
+                      onChange={(e) => setTaskTitle(e.target.value)}
                       className="input-box head-16-semi"
                       type="text"
                     />
@@ -164,6 +163,7 @@ const Tasks = () => {
                   <span className="flex gap-2">
                     {Colors.map((item) => (
                       <div
+                        key={item.color}
                         onClick={() => setSelectedColor(item.color)}
                         style={{ backgroundColor: `${item.color}` }}
                         className={
@@ -220,7 +220,7 @@ const Tasks = () => {
                 </div>
                 <div className="dynamic-input-div overflow-y-auto h-[100px]">
                   {addMore.map((item, index) => (
-                    <div className=" my-2">
+                    <div className=" my-2" key={index}>
                       <label
                         className="head-16-semi inline-block w-[100px]"
                         htmlFor=""
@@ -272,8 +272,10 @@ const TaskContainer = ({ data, color }) => {
         <img className={showTasks ? "rot-180" : ""} src={ArrowDown} alt="" />
       </div>
       <div className={showTasks ? "tasks-list-div" : "none"}>
-        {data.Tasks.map((item) => (
-          <TaskCard id={data.tasks_id} color={data.color} task={item} />
+        {data.Tasks.map((item,index) => (
+          <div key={index}>
+            <TaskCard id={data.tasks_id} color={data.color} task={item} />
+          </div>
         ))}
       </div>
     </div>

@@ -75,18 +75,22 @@ const Passwords = () => {
         {passwords.map((item) =>
           search != "" ? (
             item.label.toLowerCase().includes(search.toLowerCase()) ? (
+              <div key={Math.random()}>
+                <PasswordCard
+                  data={item}
+                  Severity={item.password_category}
+                  reload={() => getData()}
+                />
+              </div>
+            ) : null
+          ) : (
+            <div key={Math.random()}>
               <PasswordCard
                 data={item}
                 Severity={item.password_category}
                 reload={() => getData()}
               />
-            ) : null
-          ) : (
-            <PasswordCard
-              data={item}
-              Severity={item.password_category}
-              reload={() => getData()}
-            />
+            </div>
           )
         )}
       </div>
