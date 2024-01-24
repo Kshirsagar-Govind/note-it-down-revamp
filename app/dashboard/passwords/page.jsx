@@ -31,7 +31,6 @@ const Passwords = () => {
 
   React.useEffect(() => {
     if (user && passwords.length < 1) getData();
-    console.log(user);
   }, [user]);
   React.useEffect(() => {}, [passwords]);
 

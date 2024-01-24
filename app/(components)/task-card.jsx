@@ -22,7 +22,6 @@ const TaskCard = ({ id, color, task }) => {
       `${API_URL}/update-task-status`,
       data
     );
-    // dispatch(updatetTaskStatus(data));
   };
 
   return (

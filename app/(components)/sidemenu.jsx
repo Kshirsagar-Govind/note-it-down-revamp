@@ -6,6 +6,9 @@ import TasksLogo from "../(assets)/(svg)/tasks-logo";
 import AllNotesLogo from "../(assets)/(svg)/all-notes-logo";
 import ExpenseLogo from "../(assets)/(svg)/expense-logo";
 import PasswordLogo from "../(assets)/(svg)/password-logo";
+import LogoutLogo from "../(assets)/logout";
+import { redirect } from "next/navigation";
+import { WarningNotify } from "../Helpers/popups";
 
 const SideMenu = ({}) => {
   const [selected, _setSelect] = React.useState("home");
@@ -27,7 +30,7 @@ const SideMenu = ({}) => {
       case "expenses":
         return _setSelect(menu);
 
-      case "all_notes":
+      case "notes":
         return _setSelect(menu);
 
       case "tasks":
@@ -46,7 +49,7 @@ const SideMenu = ({}) => {
       <div className="my-10 mx-auto text-theme-color font-bold text-xl">
         Note It Down
       </div>
-      <div className="px-4 ">
+      <div className="px-4 flex flex-col justify-between h-full ">
         <ul className="text-theme-color text-md">
           <Link href="/dashboard">
             <li
@@ -85,17 +88,22 @@ const SideMenu = ({}) => {
           </Link>
 
           <Link href="/dashboard/notes">
-                    <li
-                        className={selected == 'all_notes' ? "flex p-2 px-4 rounded-lg bg-theme-color text-pure my-2" : "flex p-4 hover:font-semibold cursor-pointer"}
-
-                        id='all_notes'
-                        onClick={() => menuSelected('notes')}>
-                        <AllNotesLogo color={selected == 'notes' ? "#FFF" : "#5F65E7"} size="2" />
-                        <span className="ml-2">
-                            Notes
-                        </span>
-                    </li>
-                </Link >
+            <li
+              className={
+                selected == "notes"
+                  ? "flex p-2 px-4 rounded-lg bg-theme-color text-pure my-2"
+                  : "flex p-4 hover:font-semibold cursor-pointer"
+              }
+              id="notes"
+              onClick={() => menuSelected("notes")}
+            >
+              <AllNotesLogo
+                color={selected == "notes" ? "#FFF" : "#5F65E7"}
+                size="2"
+              />
+              <span className="ml-2">Notes</span>
+            </li>
+          </Link>
 
           <Link href="/dashboard/tasks">
             <li
@@ -133,6 +141,22 @@ const SideMenu = ({}) => {
             </li>
           </Link>
         </ul>
+
+        <div className="just-center py-7 w-full ">
+          <div
+            className="bg-slate-200 px-5 py-2 items-center rounded-md flex flex-row gap-3 cursor-pointer"
+            onClick={() => {
+              WarningNotify("Logging you out");
+              localStorage.clear();
+              window.location.href = window.location.origin;
+            }}
+          >
+            <div className="">
+              <LogoutLogo />
+            </div>
+            <h1>Logout</h1>
+          </div>
+        </div>
       </div>
     </div>
   );

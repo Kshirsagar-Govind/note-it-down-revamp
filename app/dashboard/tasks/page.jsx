@@ -11,6 +11,7 @@ import CloseButton from "@/app/Helpers/close-button";
 import Colors from "@/app/Helpers/colors";
 import { API_URL } from "@/constants";
 import axios from "axios";
+import EyeLogo from "@/app/(assets)/(svg)/eye-logo";
 
 const Tasks = () => {
   const { tasks, isLoading } = useAppSelector((state) => state.tasksReducer);
@@ -170,8 +171,8 @@ const Tasks = () => {
                         style={{ backgroundColor: `${item.color}` }}
                         className={
                           item.color === selectedColor
-                          ? "w-[40px] h-[40px] rounded-md shadow-sm border-2 border-theme-color"
-                          : "w-[40px] h-[40px] rounded-md transition-transform hover:-translate-y-1 hover:shadow-md"
+                            ? "w-[40px] h-[40px] rounded-md shadow-sm border-2 border-theme-color"
+                            : "w-[40px] h-[40px] rounded-md transition-transform hover:-translate-y-1 hover:shadow-md"
                         }
                       />
                     ))}
@@ -271,9 +272,11 @@ const TaskContainer = ({ data, color }) => {
         onClick={() => setShowTasks(!showTasks)}
       >
         <h1 className="head-24-semi">{data.tasks_title}</h1>
-        <img className={showTasks ? "rot-180" : ""} src={ArrowDown} alt="" />
+        <div className="cursor-pointer">
+          <EyeLogo show={showTasks} />
+        </div>
       </div>
-      <div className={showTasks ? "tasks-list-div" : "none"}>
+      <div className={showTasks ? "" : "hidden"}>
         {data.Tasks.map((item, index) => (
           <div key={index}>
             <TaskCard id={data.tasks_id} color={data.color} task={item} />

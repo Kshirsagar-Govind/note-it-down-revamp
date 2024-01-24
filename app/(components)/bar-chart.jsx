@@ -66,7 +66,6 @@ const ExpenseGraph = () => {
             new Date(arr[j].createdAt.split("T")[0]).getDate() ==
             temp_date.getDate()
           ) {
-            console.log("---------------------------------");
             total = total + Number(arr[j].cost);
             expenses[
               new Date(arr[j].createdAt.split("T")[0]).getDate() - 1
