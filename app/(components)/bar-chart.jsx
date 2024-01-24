@@ -26,7 +26,7 @@ const ExpenseGraph = () => {
   const [_year, _setYear] = useState(new Date().getFullYear());
   const { expenses, isLoading } = useSelector((state) => state.expensesReducer);
   const dispatch = useAppDispatch();
-  const { data: user } = JSON.parse(localStorage.getItem("user"));
+  const [user, setUser] = React.useState();
 
   const setExpense = () => {
     console.log(user.user_id);
@@ -35,14 +35,13 @@ const ExpenseGraph = () => {
     const arr = expenses;
     const final = [];
     const regDate = user.reg_on.split("T")[0];
-console.log(regDate,"-------------------------");
+    console.log(regDate, "-------------------------");
     while (
       // (curr_date.getMonth() + 1) >=
       // Number(data.reg_on.toLocaleString().split("/")[1]
       // )
       // &&
-      curr_date.getFullYear() >=
-      Number(regDate.substring(0, 4)) // false
+      curr_date.getFullYear() >= Number(regDate.substring(0, 4)) // false
     ) {
       let expenses = [];
       let temp_date = new Date();
@@ -96,6 +95,8 @@ console.log(regDate,"-------------------------");
   }, [expenses]);
 
   useEffect(() => {
+    const { data: user } = JSON.parse(localStorage.getItem("user"));
+    setUser(user);
     if (expenses.length < 1) getExpensesData();
   }, []);
 

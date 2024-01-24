@@ -16,17 +16,22 @@ const Tasks = () => {
   const { tasks, isLoading } = useAppSelector((state) => state.tasksReducer);
   const dispatch = useAppDispatch();
   const [search, setSearch] = React.useState("");
-  const { data: user } = JSON.parse(localStorage.getItem("user"));
+  const [user, setUser] = React.useState();
   const [showAddTasks, setShowAddTasks] = React.useState(false);
   const [addMore, setAddMore] = React.useState([]);
   const [selectedColor, setSelectedColor] = React.useState("F1F1F1");
   const [tasks_title, setTaskTitle] = React.useState([]);
 
   React.useEffect(() => {
-    if (tasks.length < 1) {
+    const { data: user } = JSON.parse(localStorage.getItem("user"));
+    setUser(user);
+  }, []);
+
+  React.useEffect(() => {
+    if (user && tasks.length < 1) {
       getData();
     }
-  }, []);
+  }, [user]);
   React.useEffect(() => {
     console.log(tasks);
   }, [tasks]);
@@ -272,7 +277,7 @@ const TaskContainer = ({ data, color }) => {
         <img className={showTasks ? "rot-180" : ""} src={ArrowDown} alt="" />
       </div>
       <div className={showTasks ? "tasks-list-div" : "none"}>
-        {data.Tasks.map((item,index) => (
+        {data.Tasks.map((item, index) => (
           <div key={index}>
             <TaskCard id={data.tasks_id} color={data.color} task={item} />
           </div>

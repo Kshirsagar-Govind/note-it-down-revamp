@@ -17,7 +17,7 @@ const Passwords = () => {
   );
   const dispatch = useAppDispatch();
   const [search, setSearch] = React.useState("");
-  const { data: user } = JSON.parse(localStorage.getItem("user"));
+  const [user, setUser] = React.useState();
   const [showAddPassword, setShowAddPassword] = React.useState(false);
   const [label, setLabel] = React.useState("");
   const [password_category, setPasswordCategory] = React.useState("");
@@ -25,8 +25,14 @@ const Passwords = () => {
   const [c_password, setConfirmPassword] = React.useState("");
 
   React.useEffect(() => {
-    if (passwords.length < 1) getData();
+    const { data: user } = JSON.parse(localStorage.getItem("user"));
+    setUser(user);
   }, []);
+
+  React.useEffect(() => {
+    if (user && passwords.length < 1) getData();
+    console.log(user);
+  }, [user]);
   React.useEffect(() => {}, [passwords]);
 
   const getData = async () => {

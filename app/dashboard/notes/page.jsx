@@ -10,10 +10,16 @@ const Notes = () => {
   const { notes, isLoading } = useAppSelector((state) => state.notesReducer);
   const dispatch = useAppDispatch();
   const [search, setSearch] = React.useState("");
-  const { data: user } = JSON.parse(localStorage.getItem("user"));
+  const [user, setUser] = React.useState();
+
   React.useEffect(() => {
-    if (notes.length < 1) getData();
+    const { data: user } = JSON.parse(localStorage.getItem("user"));
+    setUser(user);
   }, []);
+
+  React.useEffect(() => {
+    if (user && notes.length < 1) getData();
+  }, [user]);
 
   React.useEffect(() => {}, [notes]);
 

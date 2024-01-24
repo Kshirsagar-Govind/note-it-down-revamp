@@ -21,17 +21,23 @@ const Expenses = () => {
   const { expenses, isLoading } = useSelector((state) => state.expensesReducer);
   const { categories } = useSelector((state) => state.categoriesReducer);
   const dispatch = useAppDispatch();
-  const { data: user } = JSON.parse(localStorage.getItem("user"));
+  const [user, setUser] = React.useState();
   const [allData, setAllData] = useState([]);
   const [allDataTotal, setAllDataTotal] = useState([]);
   const [available_colors, setAvailable_colors] = useState([]);
   const [showAddExpense, setShowAddExpense] = useState(false);
   const [showAddCategory, setShowAddCategory] = useState(false);
+
   React.useEffect(() => {
-    if(expenses.length<1){
-    getData();
-    }
+    const { data: user } = JSON.parse(localStorage.getItem("user"));
+    setUser(user);
   }, []);
+
+  React.useEffect(() => {
+    if (user && expenses.length < 1) {
+      getData();
+    }
+  }, [user]);
 
   const getData = async () => {
     dispatch(getExpenses(user.user_id));
@@ -287,10 +293,7 @@ export const AddCategoryPopup = (props) => {
       };
       // console.log(data);
 
-      const res = await axios.post(
-        `${API_URL}/add-category`,
-        data
-      );
+      const res = await axios.post(`${API_URL}/add-category`, data);
       props.close();
       InfoNotify("New Category Added");
       // console.log(res.data);
@@ -299,9 +302,9 @@ export const AddCategoryPopup = (props) => {
     }
   };
 
-  useEffect(()=>{
-    if(Colors.length<=0) alert('You can not add more categories')
-  },[])
+  useEffect(() => {
+    if (Colors.length <= 0) alert("You can not add more categories");
+  }, []);
 
   return (
     <div className="bg-pure w-[800px] h-[380px] shadow-lg rounded-2xl p-10">
