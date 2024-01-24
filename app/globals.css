@@ -2,26 +2,118 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px dotted #5F65E7;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+    animation: rotation 2s linear infinite;
   }
+  
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  } 
+
+  .dark-back{
+    overflow:hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background-color:rgba(0, 0, 0, 0.295);
+    width: 100vw;
+    height: 100vh;
+    animation: dark_back 0.1s linear;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.just-space{
+  display: flex;
+align-items: center;
+justify-content: space-between;
+}
+.just-center{
+  display: flex;
+align-items: center;
+justify-content: center;
+}
+.back-box{
+  border-radius:1.2rem;
+  width: 40px;
+  height: 40px;
+  background-color:#5F65E7;
+  cursor: pointer;
+
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.input-box {
+  border: 1px solid;
+  outline: none;
+  height: 40px;
+  width: inherit;
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid #5F65E7;
+}
+.select-box {
+  border: 1px solid;
+  outline: none;
+  height: 45px;
+  width: inherit;
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid #5F65E7;
+}
+
+.secondary_button {
+  background-color: #5F65E7;
+  padding: 10px 20px;
+  width: inherit;
+  color: #ffffff;
+  border-radius: 5px;
+  transition: 0.2s;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.primary_button {
+  background-color: #5F65E7;
+  padding: 10px 20px;
+  width: inherit;
+  color: #ffffff;
+  border-radius: 5px;
+  transition: 0.2s;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.primary_button:hover {
+  background-color: #ffffff;
+  border: 1px solid #5F65E7;
+  color: #5F65E7;
+}
+
+.add-note-popup {
+  position: relative;
+  width: 50%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 3rem;
+  padding-bottom: 5rem;
+}
+.add-note-popup .note-popup-header {
+  height: 50px;
+  width: 100%;
 }
