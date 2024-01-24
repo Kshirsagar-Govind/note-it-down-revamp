@@ -50,9 +50,11 @@ const Notes = () => {
       console.log(payload);
       if (res.status == 200) {
         getData();
+        setShowAddNote(false);
       }
     } catch (error) {
       console.log(error);
+      setShowAddNote(false)
     }
   };
   return (
@@ -155,6 +157,7 @@ const Notes = () => {
                 <span className="flex flex-row gap-3">
                   {Colors.map((item) => (
                     <div
+                      key={item.color}
                       onClick={() => setSelectedColor(item.color)}
                       style={{ backgroundColor: `${item.color}` }}
                       className={
