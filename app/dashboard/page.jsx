@@ -52,7 +52,8 @@ const HomePage = () => {
 
   React.useEffect(() => {
     if (!user) {
-      redirect("/auth");
+      // redirect("/auth");
+      alert('Please Login to contiue')
     }
   }, [user]);
 

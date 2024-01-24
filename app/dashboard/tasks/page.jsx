@@ -31,7 +31,7 @@ const Tasks = () => {
     if (user && tasks.length < 1) {
       getData();
     }
-  }, [user]);
+  }, [user,tasks]);
   React.useEffect(() => {
     console.log(tasks);
   }, [tasks]);
