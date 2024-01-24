@@ -23,18 +23,15 @@ const Tasks = () => {
   const [tasks_title, setTaskTitle] = React.useState([]);
 
   React.useEffect(() => {
-    const { data: user } = JSON.parse(localStorage.getItem("user"));
-    setUser(user);
+    setUser(JSON.parse(localStorage.getItem("user")));
   }, []);
 
   React.useEffect(() => {
     if (user && tasks.length < 1) {
+      console.log(isLoading);
       getData();
     }
-  }, [user,tasks]);
-  React.useEffect(() => {
-    console.log(tasks);
-  }, [tasks]);
+  }, [user]);
 
   const getData = async () => {
     dispatch(getTasks(user.user_id));

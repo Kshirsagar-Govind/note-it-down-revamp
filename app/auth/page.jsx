@@ -66,7 +66,7 @@ const Registration = () => {
         SuccessNotify("Registered Successfully!");
         console.log(res);
         oktogo = true
-        localStorage.setItem("user", {data:JSON.stringify(res.data)});
+        localStorage.setItem("user", JSON.stringify(res.data));
         window.location.reload()
       }
     } catch (error) {

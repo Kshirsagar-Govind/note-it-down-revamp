@@ -29,13 +29,11 @@ const ExpenseGraph = () => {
   const [user, setUser] = React.useState();
 
   const setExpense = () => {
-    console.log(user.user_id);
     let curr_date = new Date();
     curr_date.setFullYear(_year);
     const arr = expenses;
     const final = [];
     const regDate = user.reg_on.split("T")[0];
-    console.log(regDate, "-------------------------");
     while (
       // (curr_date.getMonth() + 1) >=
       // Number(data.reg_on.toLocaleString().split("/")[1]
@@ -91,14 +89,16 @@ const ExpenseGraph = () => {
     }
   };
   useEffect(() => {
-    setExpense();
-  }, [expenses]);
+    user && setExpense();
+  }, [expenses, user]);
+
+  React.useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("user")));
+  }, []);
 
   useEffect(() => {
-    const { data: user } = JSON.parse(localStorage.getItem("user"));
-    setUser(user);
-    if (expenses.length < 1) getExpensesData();
-  }, []);
+    if (user && expenses.length < 1) getExpensesData();
+  }, [user]);
 
   const getExpensesData = async () => {
     try {

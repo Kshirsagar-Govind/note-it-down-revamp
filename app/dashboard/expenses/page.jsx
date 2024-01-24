@@ -29,8 +29,7 @@ const Expenses = () => {
   const [showAddCategory, setShowAddCategory] = useState(false);
 
   React.useEffect(() => {
-    const { data: user } = JSON.parse(localStorage.getItem("user"));
-    setUser(user);
+    setUser(JSON.parse(localStorage.getItem("user")));
   }, []);
 
   React.useEffect(() => {

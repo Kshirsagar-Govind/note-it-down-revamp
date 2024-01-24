@@ -46,14 +46,14 @@ const HomePage = () => {
   const [user, setUser] = React.useState();
 
   React.useEffect(() => {
-    const { data: user } = JSON.parse(localStorage.getItem("user"));
-    setUser(user);
+    setUser(JSON.parse(localStorage.getItem("user")));
   }, []);
 
   React.useEffect(() => {
+    console.log(user);
     if (!user) {
       // redirect("/auth");
-      alert('Please Login to contiue')
+      // alert('Please Login to contiue')
     }
   }, [user]);
 

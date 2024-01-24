@@ -1,6 +1,7 @@
 "use client";
 import FloatingButton from "@/app/(components)/floating-button";
 import Header from "@/app/(components)/header";
+import Loader from "@/app/(components)/loader-screen";
 import PasswordCard from "@/app/(components)/password-card";
 import CloseButton from "@/app/Helpers/close-button";
 import { ErrorNotify, SuccessNotify } from "@/app/Helpers/popups";
@@ -25,8 +26,7 @@ const Passwords = () => {
   const [c_password, setConfirmPassword] = React.useState("");
 
   React.useEffect(() => {
-    const { data: user } = JSON.parse(localStorage.getItem("user"));
-    setUser(user);
+    setUser(JSON.parse(localStorage.getItem("user")));
   }, []);
 
   React.useEffect(() => {
@@ -75,7 +75,11 @@ const Passwords = () => {
           />
         </div>
       </div>
-      {isLoading && <div className="">Loading</div>}
+      {isLoading && (
+        <div className="absolute top-[50%] left-[50%] flex justify-center align-middle items-center">
+          <Loader />
+        </div>
+      )}
 
       <div className="passwords-section h-[80%] px-5 pt-2 overflow-y-auto ">
         {passwords.map((item) =>

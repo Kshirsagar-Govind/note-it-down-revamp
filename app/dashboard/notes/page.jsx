@@ -13,8 +13,7 @@ const Notes = () => {
   const [user, setUser] = React.useState();
 
   React.useEffect(() => {
-    const { data: user } = JSON.parse(localStorage.getItem("user"));
-    setUser(user);
+    setUser(JSON.parse(localStorage.getItem("user")));
   }, []);
 
   React.useEffect(() => {
