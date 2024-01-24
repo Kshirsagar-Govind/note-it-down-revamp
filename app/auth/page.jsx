@@ -196,7 +196,7 @@ const Login = () => {
           <div className="flex flex-col my-3">
             <label className="">Password</label>
             <input
-              type="text"
+              type="password"
               name="password"
               className="px-2 py-2 border-2 border-theme-color rounded-md mt-1"
               value={formValues.password}
