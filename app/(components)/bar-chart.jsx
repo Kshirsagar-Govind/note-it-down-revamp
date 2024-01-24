@@ -63,7 +63,6 @@ const ExpenseGraph = () => {
     while (
       curr_date.getFullYear() >= _year // false
     ) {
-      console.log(_year, "==========================");
       let expenses = [];
       let temp_date = new Date();
       let month = selected_month
@@ -72,10 +71,8 @@ const ExpenseGraph = () => {
       temp_date.setFullYear(_year);
       temp_date.setDate(1);
       temp_date.setMonth(month);
-      let dayscount = month % 2 == 0 ? 31 : 30;
-      dayscount = month == 1 ? 28 : dayscount;
-      dayscount = month == 11 ? 31 : dayscount;
-
+      let dayscount =Months.find(it=>it.id==month).days;
+      if(month==1) dayscount = _year%4==0?29:28;
       for (let i = 0; i < dayscount; i++) {
         expenses.push({
           month: setMonthName(month),
@@ -117,7 +114,7 @@ const ExpenseGraph = () => {
     }
   };
   React.useEffect(() => {
-    user && setExpense();
+    user && setExpense(0);
   }, [_year]);
   if (isLoading) {
     return <div className="">Loading</div>;
