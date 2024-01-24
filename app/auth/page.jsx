@@ -11,7 +11,7 @@ import { getPasswords } from "../lib/features/passwords/passwordsSlice";
 import { getTasks } from "../lib/features/tasks/tasksSlice";
 import Loader from "../(components)/loader-screen";
 import { API_URL } from "@/constants";
-import { ErrorNotify, SuccessNotify } from "../Helpers/popups";
+import { ErrorNotify, SuccessNotify, WarningNotify } from "../Helpers/popups";
 import axios from "axios";
 /*
             name: req.body.name,
@@ -144,7 +144,7 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const { username, user_id, isLoading } = useSelector(
+  const { username, user_id, isLoading, isError } = useSelector(
     (state) => state.authReducer
   );
 
@@ -163,9 +163,12 @@ const Login = () => {
       dispatch(getNotes(user_id));
       dispatch(getPasswords(user_id));
       dispatch(getTasks(user_id));
+      SuccessNotify('Login Success')
       redirect("/dashboard");
     }
-  }, [user_id]);
+    if(isError) {ErrorNotify('Login failed');}
+
+  }, [user_id, isError]);
   if (isLoading) {
     return (
       <div className="">
@@ -209,7 +212,7 @@ const Login = () => {
                     username -
                     demo.account@demo.com <br /> 
                     password -
-                    123456
+                    qwerty
                 </h3>
         </form>
       </div>
