@@ -48,9 +48,9 @@ const NoteCard = ({ NoteData, color, reload }) => {
             </div>
 
             {hover && <div className=" flex justify-around w-full h-12 absolute bottom-0 left-0 rounded-b-md opacity-75">
-                <span className="cursor-pointer">
+                {/* <span className="cursor-pointer">
                     <EditNoteLogo/>
-                </span>
+                </span> */}
                 <span className="cursor-pointer" onClick={() => onDelete()}>
                     <DeleteLogo/>
                 </span>

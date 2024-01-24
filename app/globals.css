@@ -117,3 +117,16 @@ justify-content: center;
   height: 50px;
   width: 100%;
 }
+
+.input-box:focus, .input-textarea:focus {
+  filter: brightness(99%);
+}
+
+.input-textarea {
+  border: 1px solid;
+  outline: none;
+  width: inherit;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 2px solid #5F65E7;
+}

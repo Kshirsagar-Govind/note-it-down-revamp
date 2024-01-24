@@ -170,8 +170,8 @@ const Tasks = () => {
                         style={{ backgroundColor: `${item.color}` }}
                         className={
                           item.color === selectedColor
-                            ? "w-[40px] h-[40px] rounded-md shadow-sm border-2 border-theme-color"
-                            : "w-[40px] h-[40px] rounded-md transition-transform hover:-translate-y-1"
+                          ? "w-[40px] h-[40px] rounded-md shadow-sm border-2 border-theme-color"
+                          : "w-[40px] h-[40px] rounded-md transition-transform hover:-translate-y-1 hover:shadow-md"
                         }
                       />
                     ))}

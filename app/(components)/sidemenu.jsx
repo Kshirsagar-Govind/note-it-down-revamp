@@ -84,7 +84,7 @@ const SideMenu = ({}) => {
             </li>
           </Link>
 
-          {/* <Link href="/dashboard/notes">
+          <Link href="/dashboard/notes">
                     <li
                         className={selected == 'all_notes' ? "flex p-2 px-4 rounded-lg bg-theme-color text-pure my-2" : "flex p-4 hover:font-semibold cursor-pointer"}
 
@@ -92,10 +92,10 @@ const SideMenu = ({}) => {
                         onClick={() => menuSelected('notes')}>
                         <AllNotesLogo color={selected == 'notes' ? "#FFF" : "#5F65E7"} size="2" />
                         <span className="ml-2">
-                            All Notes
+                            Notes
                         </span>
                     </li>
-                </Link > */}
+                </Link >
 
           <Link href="/dashboard/tasks">
             <li
