@@ -61,7 +61,7 @@ const Registration = () => {
     e.preventDefault();
     if (formValues.name.length < 1) {
       return ErrorNotify("Please enter name.");
-    }else if (formValues.email.length < 1) {
+    } else if (formValues.email.length < 1) {
       return ErrorNotify("Please enter email.");
     } else if (
       formValues.password.length < 1 ||
@@ -95,7 +95,7 @@ const Registration = () => {
       <div className="text-center">
         <h1 className="text-2xl">Registration</h1>
       </div>
-      <form onSubmit={onSubmit} className="reg-form">
+      <form onSubmit={onSubmit} className="reg-form w-[280px]">
         <div className="flex flex-col my-3">
           <label className="">Name</label>
           <input
@@ -138,8 +138,12 @@ const Registration = () => {
             onChange={(e) => handleOnChange(e.target.name, e.target.value)}
           />
         </div>
-        <div className="transition-all hover:-translate-y-1 hover:shadow-md cursor-pointer bg-theme-color my-5 px-4 py-4 text-center rounded-md text-pure font-bold">
-          <input type="submit" className="" value="Register" />
+        <div className="w-full">
+          <input
+            className="transition-all w-full hover:-translate-y-1 hover:shadow-md cursor-pointer bg-theme-color my-5 px-4 py-4 text-center rounded-md text-pure font-bold"
+            type="submit"
+            value="Register"
+          />
         </div>
         {/* <h3>
                     Test Account
@@ -226,8 +230,12 @@ const Login = () => {
               onChange={(e) => handleOnChange(e.target.name, e.target.value)}
             />
           </div>
-          <div className="transition-all hover:-translate-y-1 hover:shadow-md cursor-pointer bg-theme-color my-5 px-4 py-4 text-center rounded-md text-pure font-bold">
-            <input type="submit" className="" value="Login" />
+          <div className="w-full">
+            <input
+              className="transition-all w-full hover:-translate-y-1 hover:shadow-md cursor-pointer bg-theme-color my-5 px-4 py-4 text-center rounded-md text-pure font-bold"
+              type="submit"
+              value="Login"
+            />
           </div>
           <h3>
             Test Account

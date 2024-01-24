@@ -1,7 +1,6 @@
 "use client";
 import React, { Component, useEffect, useState } from "react";
 import { connect, useSelector } from "react-redux";
-
 import {
   BarChart,
   Bar,
@@ -15,35 +14,62 @@ import {
 } from "recharts";
 import { CompaireTwoDate, setMonthName } from "../Helpers/getDate";
 import { API_URL } from "@/constants";
+import LeftIcon from "@/app/(assets)/(svg)/left-icon";
+import RightIcon from "@/app/(assets)/(svg)/right-icon";
 import { useAppDispatch } from "../lib/hooks";
 import { getExpenses } from "../lib/features/expenses/expensesSlice";
+import { Months } from "../lib/constans";
 
 const ExpenseGraph = () => {
   const [_final, _setFinal] = useState();
   const [_totalExpenseData, _setTotalExpensData] = useState([]);
   const [_data, _setData] = useState([]);
   const [_month, _setMonth] = useState([]);
+  const [_slected_month, _setSelectMonth] = useState(new Date().getMonth());
   const [_year, _setYear] = useState(new Date().getFullYear());
   const { expenses, isLoading } = useSelector((state) => state.expensesReducer);
   const dispatch = useAppDispatch();
   const [user, setUser] = React.useState();
 
-  const setExpense = () => {
+  useEffect(() => {
+    user && setExpense();
+  }, [expenses, user]);
+
+  React.useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("user")));
+  }, []);
+
+  useEffect(() => {
+    if (user && expenses.length < 1) {
+      getExpensesData();
+    }
+  }, [user]);
+
+  const getExpensesData = async () => {
+    try {
+      dispatch(getExpenses(user.user_id));
+      // setExpense();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const setExpense = (selected_month) => {
     let curr_date = new Date();
-    curr_date.setFullYear(_year);
+    _setData([]);
     const arr = expenses;
     const final = [];
-    const regDate = user.reg_on.split("T")[0];
+    console.log(_year);
     while (
-      // (curr_date.getMonth() + 1) >=
-      // Number(data.reg_on.toLocaleString().split("/")[1]
-      // )
-      // &&
-      curr_date.getFullYear() >= Number(regDate.substring(0, 4)) // false
+      curr_date.getFullYear() >= _year // false
     ) {
+      console.log(_year, "==========================");
       let expenses = [];
       let temp_date = new Date();
-      let month = Number(curr_date.getMonth());
+      let month = selected_month
+        ? selected_month
+        : Number(curr_date.getMonth());
+      temp_date.setFullYear(_year);
       temp_date.setDate(1);
       temp_date.setMonth(month);
       let dayscount = month % 2 == 0 ? 31 : 30;
@@ -64,7 +90,11 @@ const ExpenseGraph = () => {
         for (let j = 0; j < arr.length; j++) {
           if (
             new Date(arr[j].createdAt.split("T")[0]).getDate() ==
-            temp_date.getDate()
+              temp_date.getDate() &&
+            new Date(arr[j].createdAt.split("T")[0]).getMonth() ==
+              temp_date.getMonth() &&
+            new Date(arr[j].createdAt.split("T")[0]).getFullYear() ==
+              temp_date.getFullYear()
           ) {
             total = total + Number(arr[j].cost);
             expenses[
@@ -75,44 +105,52 @@ const ExpenseGraph = () => {
             ].list.push(arr[j]);
           }
         }
-
         temp_date.setDate(temp_date.getDate() + 1);
       }
 
       //
       final.push({ expenses });
-
       _setData(final[0]);
       _setMonth(final[0].expenses[0].month);
       curr_date.setMonth(curr_date.getMonth() - 1);
     }
   };
-  useEffect(() => {
-    user && setExpense();
-  }, [expenses, user]);
-
   React.useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem("user")));
-  }, []);
-
-  useEffect(() => {
-    if (user && expenses.length < 1) getExpensesData();
-  }, [user]);
-
-  const getExpensesData = async () => {
-    try {
-      dispatch(getExpenses(user.user_id));
-      // setExpense();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    user && setExpense();
+  }, [_year]);
   if (isLoading) {
     return <div className="">Loading</div>;
   } else
     return (
       <div className="">
-        <h4>Current Month - {_month}</h4> <br />
+        <div className="py-2 flex flex-row justify-between w-full">
+          <div className="">
+            <label htmlFor="" className="px-3 pr-4">
+              Month
+            </label>
+            <select
+              name=""
+              id=""
+              className="px-2 py-1"
+              onChange={(e) => setExpense(e.target.value)}
+            >
+              {Months.map((item, index) => {
+                return <option value={item.id}>{item.name}</option>;
+              })}
+            </select>
+          </div>
+          <div className="flex items-center">
+            <div className="" onClick={() => _setYear(_year - 1)}>
+              <LeftIcon />
+            </div>
+            <h2>Year - {_year}</h2>
+            {_year < new Date().getFullYear() && (
+              <div className="" onClick={() => _setYear(_year + 1)}>
+                <RightIcon />
+              </div>
+            )}
+          </div>
+        </div>
         <BarChart width={1200} height={350} data={_data.expenses} barSize={10}>
           <YAxis />
           <XAxis dataKey="name" />

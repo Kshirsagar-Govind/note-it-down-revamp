@@ -11,7 +11,7 @@ const Header = ({ title }) => {
   return (
     <div className="items-center flex  mb-2 ro">
       <div className="logo">
-        {title == "Home Page" ? (
+        {title == "Home" ? (
           <HomeLogo color="#5F65E7" />
         ) : title == "All Notes" ? (
           <AllNotesLogo color="#5F65E7" />
