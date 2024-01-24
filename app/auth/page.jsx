@@ -59,20 +59,35 @@ const Registration = () => {
   };
   const onSubmit = async (e) => {
     e.preventDefault();
+    if (formValues.name.length < 1) {
+      return ErrorNotify("Please enter name.");
+    }else if (formValues.email.length < 1) {
+      return ErrorNotify("Please enter email.");
+    } else if (
+      formValues.password.length < 1 ||
+      formValues.confirm_password.length < 1
+    ) {
+      return ErrorNotify("Please enter password.");
+    } else if (
+      formValues.password.length < 4 ||
+      formValues.confirm_password.length < 4
+    ) {
+      return ErrorNotify("Password too short!");
+    }
     let oktogo = false;
     try {
       const res = await axios.post(`${API_URL}/register-user`, formValues);
       if (res.status == 200) {
         SuccessNotify("Registered Successfully!");
         console.log(res);
-        oktogo = true
+        oktogo = true;
         localStorage.setItem("user", JSON.stringify(res.data));
-        window.location.reload()
+        window.location.reload();
       }
     } catch (error) {
       ErrorNotify("Registration Failed!");
     }
-    console.log(formValues,oktogo);
+    console.log(formValues, oktogo);
   };
 
   return (
@@ -154,6 +169,13 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (formValues.email.length < 1) {
+      return ErrorNotify("Please enter email.");
+    } else if (formValues.password.length < 1) {
+      return ErrorNotify("Please enter password.");
+    } else if (formValues.password.length < 4) {
+      return ErrorNotify("Password too short!");
+    }
     dispatch(userLogin(formValues));
   };
 
@@ -163,11 +185,12 @@ const Login = () => {
       dispatch(getNotes(user_id));
       dispatch(getPasswords(user_id));
       dispatch(getTasks(user_id));
-      SuccessNotify('Login Success')
+      SuccessNotify("Login Success");
       redirect("/dashboard");
     }
-    if(isError) {ErrorNotify('Login failed');}
-
+    if (isError) {
+      ErrorNotify("Login failed");
+    }
   }, [user_id, isError]);
   if (isLoading) {
     return (
@@ -207,13 +230,11 @@ const Login = () => {
             <input type="submit" className="" value="Login" />
           </div>
           <h3>
-                    Test Account
-                    <br />
-                    username -
-                    demo.account@demo.com <br /> 
-                    password -
-                    qwerty
-                </h3>
+            Test Account
+            <br />
+            username - demo.account@demo.com <br />
+            password - qwerty
+          </h3>
         </form>
       </div>
     );
