@@ -203,11 +203,14 @@ const Login = () => {
           <div className="transition-all hover:-translate-y-1 hover:shadow-md cursor-pointer bg-theme-color my-5 px-4 py-4 text-center rounded-md text-pure font-bold">
             <input type="submit" className="" value="Login" />
           </div>
-          {/* <h3>
+          <h3>
                     Test Account
                     <br />
-                    [username - test@mail.com] <br /> [password - 12345]
-                </h3> */}
+                    username -
+                    demo.account@demo.com <br /> 
+                    password -
+                    123456
+                </h3>
         </form>
       </div>
     );
