@@ -26,13 +26,14 @@ const ExpenseGraph = () => {
   const [_data, _setData] = useState([]);
   const [_month, _setMonth] = useState([]);
   const [_slected_month, _setSelectMonth] = useState(new Date().getMonth());
+  const [_slected_month_2, _setSelectMonth_2] = useState(new Date().getMonth());
   const [_year, _setYear] = useState(new Date().getFullYear());
   const { expenses, isLoading } = useSelector((state) => state.expensesReducer);
   const dispatch = useAppDispatch();
   const [user, setUser] = React.useState();
 
   useEffect(() => {
-    user && setExpense(new Date().getMonth());
+    user && setExpense(_slected_month);
   }, [expenses, user]);
 
   React.useEffect(() => {
@@ -41,7 +42,7 @@ const ExpenseGraph = () => {
 
   useEffect(() => {
     if (user && expenses.length < 1) {
-      getExpensesData();
+      getExpensesData(_slected_month);
     }
   }, [user]);
 
@@ -58,8 +59,8 @@ const ExpenseGraph = () => {
     let curr_date = new Date();
     _setData([]);
     const arr = expenses;
-    const final = [];
-    console.log(_year);
+    const final = [];;
+    _setSelectMonth_2(Months.find(it=>it.id==selected_month).name)
     while (
       curr_date.getFullYear() >= _year // false
     ) {
@@ -123,6 +124,15 @@ const ExpenseGraph = () => {
     return (
       <div className="">
         <div className="py-2 flex flex-row justify-between w-full">
+          <div className="flex">
+            <label htmlFor="" className="px-3 pr-4">
+              Selected Month -
+            </label>
+            <p>
+              {_slected_month_2}
+            </p>
+          </div>
+          <div className="flex">
           <div className="">
             <label htmlFor="" className="px-3 pr-4">
               Month
@@ -148,6 +158,7 @@ const ExpenseGraph = () => {
                 <RightIcon />
               </div>
             )}
+          </div>
           </div>
         </div>
         <BarChart width={1200} height={350} data={_data.expenses} barSize={10}>
