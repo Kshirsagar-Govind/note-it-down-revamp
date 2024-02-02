@@ -32,7 +32,7 @@ const ExpenseGraph = () => {
   const [user, setUser] = React.useState();
 
   useEffect(() => {
-    user && setExpense();
+    user && setExpense(new Date().getMonth());
   }, [expenses, user]);
 
   React.useEffect(() => {
@@ -116,6 +116,7 @@ const ExpenseGraph = () => {
   React.useEffect(() => {
     user && setExpense(0);
   }, [_year]);
+
   if (isLoading) {
     return <div className="">Loading</div>;
   } else
